@@ -22,8 +22,9 @@ def alive():
     global red
     global green
     global blue
-    green = clamp((green - 1), 0, 255)
-    red = clamp((red + 1), 0, 255)
+    if timesWaited < 1:
+        green = clamp((green - 1), 0, 255)
+        red = clamp((red + 1), 0, 255)
 
 def random_action():
     global red
@@ -121,6 +122,6 @@ while True:
     alive()
     random_action()
     doActions()
-    foreground= (red,green,blue)
+    foreground = (red,green,blue)
     s.set_pixels(tamagotchi_face())
     time.sleep(0.5)
