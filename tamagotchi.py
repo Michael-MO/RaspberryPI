@@ -35,11 +35,16 @@ def random_action():
     
     chance = random.randint(0, 99)
     if chance <= 1:
-      timesWaited = timesWaited + 1
-      timesFed = timesFed - 1
-      red = 0
-      green = 0
-      blue = 255
+      if timesWaited < 3:
+        timesWaited = timesWaited + 1
+        timesFed = timesFed - 1
+        red = 0
+        green = 0
+        blue = 255
+      else:
+        red = 255
+        green = 0
+        blue = 0
     
 def feed():
     global red
@@ -58,12 +63,14 @@ def feed():
     elif timesFed < 6 and timesWaited < 1:
       green = clamp((green + 50), 0, 255)
       red = clamp((red - 50), 0, 255)
+      blue = 0
       timesFed = timesFed + 1
       if timesExercised > 0:
         timesExercised = timesExercised - 1
         
     else:
       green = 0
+      blue = 0
       red = 255
     
 def exercise():
@@ -76,12 +83,15 @@ def exercise():
     if timesExercised < 22:
       green = clamp((green + 50), 0, 255)
       red = clamp((red - 50), 0, 255)
+      blue = 0
       timesExercised = timesExercised + 1
       if timesFed > 0:
         timesFed = timesFed - 1
+        
     else:
       green = 0
       red = 255
+      blue = 0
     
 def doActions():
     for event in s.stick.get_events():
